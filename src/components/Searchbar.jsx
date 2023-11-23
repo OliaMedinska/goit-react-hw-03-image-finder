@@ -1,3 +1,4 @@
+
 export const Searchbar = () => {
     return `
     <header class="searchbar">
