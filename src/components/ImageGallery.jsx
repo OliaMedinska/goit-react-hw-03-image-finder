@@ -1,4 +1,3 @@
-
 import { ImageGalleryItem } from "./ImageGalleryItem";
 
 export const ImageGallery = (items) => {

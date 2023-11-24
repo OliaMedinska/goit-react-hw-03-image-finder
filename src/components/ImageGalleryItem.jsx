@@ -1,4 +1,3 @@
-
 export const ImageGalleryItem = () => {
 return `
     <li class="gallery-item">
