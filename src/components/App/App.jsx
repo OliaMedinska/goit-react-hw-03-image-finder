@@ -8,14 +8,14 @@ export class App extends Component {
 state = {
   galleryItems: [],
 };
-// 
+
 render() {
   const { galleryItems } = this.state;
 
 return (
   <>
   <Searchbar/>
-  <ImageGallery items={galleryItems}/>
+  <ImageGallery/>
   <Loader/>
   <LoaderButton/>
   </>

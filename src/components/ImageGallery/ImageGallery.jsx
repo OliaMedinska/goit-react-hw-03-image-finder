@@ -6,8 +6,8 @@ return (
     <GalleryList>
         
     {items.map((item) => (
-        <ImageGalleryItem key={item.id} {...item}/>
+        <ImageGalleryItem/>
     ))
-    },
+    }
     </GalleryList>)
 };
