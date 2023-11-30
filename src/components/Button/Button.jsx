@@ -1,4 +1,4 @@
-import { Button } from "components/App/App.styled";
+import { Button } from "./Button.styled";
 
  export const LoaderButton = () => {
     return (
