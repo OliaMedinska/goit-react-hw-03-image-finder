@@ -1,7 +1,7 @@
 import { ImageGalleryItem } from '../ImageGalleryItem/ImageGalleryItem';
 import { GalleryList } from './ImageGallery.styled';
 
-export const ImageGallery = ({ items }) => {
+export const ImageGallery = ({ items, selectedimage }) => {
   return (
     <GalleryList>
       {items.map(({ id, largeImageURL, webformatURL, tags }) => (
@@ -10,6 +10,7 @@ export const ImageGallery = ({ items }) => {
           img={largeImageURL}
           imgWeb={webformatURL}
           name={tags}
+          isOpen={selectedimage}
         />
       ))}
     </GalleryList>

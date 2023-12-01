@@ -18,13 +18,7 @@ export const GalleryImg = styled.img`
       }
 `;
 
-export const GalleryModal = styled.div`
-      position: fixed;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 1;
-      background-color: #fff;
-      top: '50%';
-      left: '50%';
+
+export const ImageModal = styled.img`
+    max-width: 1000px;
 `;

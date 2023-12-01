@@ -1,34 +1,57 @@
-import {
-  GalleryItem,
-  GalleryImg,
-  GalleryModal,
-} from './ImageGalleryItem.styled';
 import { Component } from 'react';
+import { GalleryItem, GalleryImg, ImageModal } from './ImageGalleryItem.styled';
+import Modal from 'react-modal';
+
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    marginTop: '50px',
+  },
+};
+
+Modal.setAppElement('#root');
 
 export class ImageGalleryItem extends Component {
   state = {
-    isOpen: true,
+    isModalOpen: false,
   };
 
-  //metod true <=> false
-  handleClick(e) {
-    if (e.target === e.currentTarget) {
-      // тут змінити isOpen в стейті на false
-    }
-  }
+  openModal = () => {
+    this.setState({
+      isModalOpen: true,
+    });
+  };
+
+  closeModal = () => {
+    this.setState({
+      isModalOpen: false,
+    });
+  };
 
   render() {
     const { img, imgWeb, name } = this.props;
-    const { isOpen } = this.state;
+    const { isModalOpen } = this.state;
 
     return (
-      <GalleryItem>
+      <GalleryItem onClick={this.openModal}>
         <GalleryImg src={imgWeb} alt={name} />
-        {isOpen && (
-          <GalleryModal>
-            <img src={img} alt={name} />
-          </GalleryModal>
-        )}
+        <Modal
+          isOpen={isModalOpen}
+          onRequestClose={this.closeModal}
+          style={customStyles}
+          contentLabel="Image Modal"
+        >
+          <ImageModal
+            src={img}
+            alt={name}
+            onClick={this.closeModal}
+          ></ImageModal>
+        </Modal>
       </GalleryItem>
     );
   }
