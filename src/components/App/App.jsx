@@ -8,15 +8,16 @@ import { fetchImages } from 'api';
 export class App extends Component {
   state = {
     galleryItems: [],
+    namePhoto: '',
     page: 1,
   };
 
   async componentDidMount() {
-    const { page } = this.state;
+    const { namePhoto, page } = this.state;
 
     try {
       this.setState({ isLoading: true });
-      const initialImages = await fetchImages(page);
+      const initialImages = await fetchImages(namePhoto, page);
       this.setState({ galleryItems: initialImages });
     } catch (error) {
     } finally {
@@ -25,12 +26,15 @@ export class App extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { page } = this.state;
+    const { namePhoto, page } = this.state;
 
-    if (prevState.page !== this.state.page) {
-      const newImages = fetchImages(page);
-      this.setState({ galleryItems: newImages });
-    }
+    const updatedImages = async () => {
+      if (prevState.page !== this.state.page) {
+        const newImages = await fetchImages(namePhoto, page);
+        this.setState({ galleryItems: newImages });
+      }
+    };
+    updatedImages();
   }
 
   increasePage() {
