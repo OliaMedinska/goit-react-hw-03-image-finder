@@ -22,12 +22,6 @@ export class App extends Component {
     }
   }
 
-  // async onLoadMore() {
-  //   this.state.page += 1;
-  //   const { data } = await fetchImages();
-  //   this.setState({ galleryItems: data });
-  // }
-
   render() {
     const { galleryItems } = this.state;
 
