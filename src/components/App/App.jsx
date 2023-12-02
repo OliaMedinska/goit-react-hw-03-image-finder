@@ -12,14 +12,31 @@ export class App extends Component {
   };
 
   async componentDidMount() {
+    const { page } = this.state;
+
     try {
       this.setState({ isLoading: true });
-      const initialImages = await fetchImages();
+      const initialImages = await fetchImages(page);
       this.setState({ galleryItems: initialImages });
     } catch (error) {
     } finally {
       this.setState({ isLoading: false });
     }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { page } = this.state;
+
+    if (prevState.page !== this.state.page) {
+      const newImages = fetchImages(page);
+      this.setState({ galleryItems: newImages });
+    }
+  }
+
+  increasePage() {
+    this.setState(prevState => ({
+      page: prevState.page + 1,
+    }));
   }
 
   render() {
@@ -30,7 +47,7 @@ export class App extends Component {
         <Searchbar />
         <ImageGallery items={galleryItems} />
         {galleryItems.length === 0 && <Loader></Loader>}
-        <LoaderButton onClick={this.onLoadMore} />
+        <LoaderButton onClick={this.increasePage} />
       </>
     );
   }
