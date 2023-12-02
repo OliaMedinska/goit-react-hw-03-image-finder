@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { Searchbar } from '../Searchbar/Searchbar';
-// import { Loader } from 'components/Loader/Loader';
+import { Loader } from 'components/Loader/Loader';
 import { LoaderButton } from 'components/Button/Button';
 import { ImageGallery } from 'components/ImageGallery/ImageGallery';
-// import { Modal } from 'components/Modal/Modal';
 import { fetchImages } from 'api';
 
 export class App extends Component {
   state = {
     galleryItems: [],
+    page: 1,
   };
 
   async componentDidMount() {
@@ -22,6 +22,12 @@ export class App extends Component {
     }
   }
 
+  // async onLoadMore() {
+  //   this.state.page += 1;
+  //   const { data } = await fetchImages();
+  //   this.setState({ galleryItems: data });
+  // }
+
   render() {
     const { galleryItems } = this.state;
 
@@ -29,7 +35,8 @@ export class App extends Component {
       <>
         <Searchbar />
         <ImageGallery items={galleryItems} />
-        <LoaderButton />
+        {galleryItems.length === 0 && <Loader></Loader>}
+        <LoaderButton onClick={this.onLoadMore} />
       </>
     );
   }

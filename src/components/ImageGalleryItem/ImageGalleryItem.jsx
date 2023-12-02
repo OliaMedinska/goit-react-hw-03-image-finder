@@ -38,8 +38,10 @@ export class ImageGalleryItem extends Component {
     const { isModalOpen } = this.state;
 
     return (
-      <GalleryItem onClick={this.openModal}>
-        <GalleryImg src={imgWeb} alt={name} />
+      <>
+        <GalleryItem onClick={this.openModal}>
+          <GalleryImg src={imgWeb} alt={name} />
+        </GalleryItem>
         <Modal
           isOpen={isModalOpen}
           onRequestClose={this.closeModal}
@@ -52,7 +54,7 @@ export class ImageGalleryItem extends Component {
             onClick={this.closeModal}
           ></ImageModal>
         </Modal>
-      </GalleryItem>
+      </>
     );
   }
 }

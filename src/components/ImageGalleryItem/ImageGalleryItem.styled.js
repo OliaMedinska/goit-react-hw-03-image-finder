@@ -20,5 +20,6 @@ export const GalleryImg = styled.img`
 
 
 export const ImageModal = styled.img`
-    max-width: 1000px;
+    max-width: 900px;
+    max-height: 700px;
 `;
