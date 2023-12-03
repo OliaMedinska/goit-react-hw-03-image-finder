@@ -37,11 +37,11 @@ export class App extends Component {
     updatedImages();
   }
 
-  increasePage() {
+  increasePage = () => {
     this.setState(prevState => ({
       page: prevState.page + 1,
     }));
-  }
+  };
 
   render() {
     const { galleryItems } = this.state;
