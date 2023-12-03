@@ -10,9 +10,11 @@ export class App extends Component {
     galleryItems: [],
     namePhoto: '',
     page: 1,
+    isLoading: false,
   };
 
   async componentDidMount() {
+    console.log('...');
     const { namePhoto, page } = this.state;
 
     try {
@@ -29,11 +31,20 @@ export class App extends Component {
     const { namePhoto, page } = this.state;
 
     const updatedImages = async () => {
-      if (prevState.page !== this.state.page) {
-        const newImages = await fetchImages(namePhoto, page);
-        this.setState({ galleryItems: newImages });
+      try {
+        this.setState({ isLoading: true });
+        if (prevState.page !== page || prevState.namePhoto !== namePhoto) {
+          const newImages = await fetchImages(namePhoto, page);
+          this.setState(prevState => ({
+            galleryItems: [...prevState.galleryItems, ...newImages],
+          }));
+        }
+      } catch (error) {
+      } finally {
+        this.setState({ isLoading: false });
       }
     };
+
     updatedImages();
   }
 
@@ -43,14 +54,26 @@ export class App extends Component {
     }));
   };
 
+  onSubmitPhoto = e => {
+    e.preventDefault();
+
+    this.setState(prevState => ({
+      galleryItems: [],
+      namePhoto: e.target.search.value,
+      page: 1,
+    }));
+
+    e.target.reset();
+  };
+
   render() {
-    const { galleryItems } = this.state;
+    const { galleryItems, isLoading } = this.state;
 
     return (
       <>
-        <Searchbar />
+        <Searchbar onSubmit={this.onSubmitPhoto} />
         <ImageGallery items={galleryItems} />
-        {galleryItems.length === 0 && <Loader></Loader>}
+        {isLoading && <Loader></Loader>}
         <LoaderButton onClick={this.increasePage} />
       </>
     );

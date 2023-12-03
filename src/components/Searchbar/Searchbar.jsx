@@ -1,22 +1,27 @@
-import { Header, Form, FormButton, FormLabel, FormInput } from "./Searchbar.styled";
+import {
+  Header,
+  Form,
+  FormButton,
+  FormLabel,
+  FormInput,
+} from './Searchbar.styled';
 
-
-// props onSubmit - функція для передачі значення інпута під час сабміту форми
-export const Searchbar = () => {
-    return (
+export const Searchbar = ({ onSubmit }) => {
+  return (
     <Header>
-  <Form>
-    <FormButton type="submit">
-      <FormLabel></FormLabel>
-    </FormButton>
+      <Form onSubmit={onSubmit}>
+        <FormButton type="submit">
+          <FormLabel></FormLabel>
+        </FormButton>
 
-    <FormInput
-      type="text"
-      autoComplete="off"
-      autoFocus
-      placeholder="Search images and photos"
-    />
-  </Form>
-</Header>
-    )
+        <FormInput
+          type="text"
+          autoComplete="off"
+          autoFocus
+          placeholder="Search images and photos"
+          name="search"
+        />
+      </Form>
+    </Header>
+  );
 };
