@@ -31,17 +31,11 @@ export class App extends Component {
     const { namePhoto, page } = this.state;
 
     const updatedImages = async () => {
-      try {
-        this.setState({ isLoading: true });
-        if (prevState.page !== page || prevState.namePhoto !== namePhoto) {
-          const newImages = await fetchImages(namePhoto, page);
-          this.setState(prevState => ({
-            galleryItems: [...prevState.galleryItems, ...newImages],
-          }));
-        }
-      } catch (error) {
-      } finally {
-        this.setState({ isLoading: false });
+      if (prevState.page !== page || prevState.namePhoto !== namePhoto) {
+        const newImages = await fetchImages(namePhoto, page);
+        this.setState(prevState => ({
+          galleryItems: [...prevState.galleryItems, ...newImages],
+        }));
       }
     };
 
@@ -62,8 +56,6 @@ export class App extends Component {
       namePhoto: e.target.search.value,
       page: 1,
     }));
-
-    e.target.reset();
   };
 
   render() {
