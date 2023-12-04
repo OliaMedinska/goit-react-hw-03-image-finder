@@ -14,3 +14,8 @@ export const GalleryList = styled.ul`
     margin-top: 20px;
     margin-bottom: 20px;
 `; 
+
+export const ImageModal = styled.img`
+    max-width: 900px;
+    max-height: 700px;
+`;

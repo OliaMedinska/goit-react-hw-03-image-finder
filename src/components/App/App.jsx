@@ -13,20 +13,6 @@ export class App extends Component {
     isLoading: false,
   };
 
-  async componentDidMount() {
-    console.log('...');
-    const { namePhoto, page } = this.state;
-
-    try {
-      this.setState({ isLoading: true });
-      const initialImages = await fetchImages(namePhoto, page);
-      this.setState({ galleryItems: initialImages });
-    } catch (error) {
-    } finally {
-      this.setState({ isLoading: false });
-    }
-  }
-
   componentDidUpdate(prevProps, prevState) {
     const { namePhoto, page } = this.state;
 
@@ -53,7 +39,7 @@ export class App extends Component {
 
     this.setState(prevState => ({
       galleryItems: [],
-      namePhoto: e.target.search.value,
+      namePhoto: e.target.search.value.trim(),
       page: 1,
     }));
   };
@@ -66,7 +52,9 @@ export class App extends Component {
         <Searchbar onSubmit={this.onSubmitPhoto} />
         <ImageGallery items={galleryItems} />
         {isLoading && <Loader></Loader>}
-        <LoaderButton onClick={this.increasePage} />
+        {galleryItems.length >= 12 && (
+          <LoaderButton onClick={this.increasePage} />
+        )}
       </>
     );
   }
