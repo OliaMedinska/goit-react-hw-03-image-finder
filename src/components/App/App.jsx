@@ -21,8 +21,8 @@ export class App extends Component {
       if (prevState.page !== page || prevState.namePhoto !== namePhoto) {
         const newImages = await fetchImages(namePhoto, page);
         this.setState(prevState => ({
-          galleryItems: [...prevState.galleryItems, ...newImages],
-          loadMore: this.state.page < Math.ceil(fetchImages.totalHits / 12),
+          galleryItems: [...prevState.galleryItems, ...newImages.hits],
+          loadMore: this.state.page < Math.ceil(newImages.totalHits / 12),
         }));
       }
     };
@@ -54,7 +54,7 @@ export class App extends Component {
         <Searchbar onSubmit={this.onSubmitPhoto} />
         <ImageGallery items={galleryItems} />
         {isLoading && <Loader></Loader>}
-        {loadMore && !isLoading && galleryItems.length < 0 &&(<LoaderButton onClick={this.increasePage} />)}
+        {galleryItems.length > 0 && loadMore && <LoaderButton onClick={this.increasePage} />}
       </>
     );
   }
