@@ -61,7 +61,6 @@ export class ImageGallery extends Component {
             <ImageModal
               src={selectedImage}
               alt={selectedImage}
-              // onClick={this.handleModalClose}
             ></ImageModal>
           </Modal>
         )}
