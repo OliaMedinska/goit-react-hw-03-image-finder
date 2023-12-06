@@ -11,6 +11,7 @@ export class App extends Component {
     namePhoto: '',
     page: 1,
     isLoading: false,
+    loadMore: false,
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -21,6 +22,7 @@ export class App extends Component {
         const newImages = await fetchImages(namePhoto, page);
         this.setState(prevState => ({
           galleryItems: [...prevState.galleryItems, ...newImages],
+          loadMore: this.state.page < Math.ceil(fetchImages.totalHits / 12),
         }));
       }
     };
@@ -45,16 +47,14 @@ export class App extends Component {
   };
 
   render() {
-    const { galleryItems, isLoading } = this.state;
+    const { galleryItems, isLoading, loadMore } = this.state;
 
     return (
       <>
         <Searchbar onSubmit={this.onSubmitPhoto} />
         <ImageGallery items={galleryItems} />
         {isLoading && <Loader></Loader>}
-        {galleryItems.length >= 12 && (
-          <LoaderButton onClick={this.increasePage} />
-        )}
+        {loadMore && !isLoading && galleryItems.length < 0 &&(<LoaderButton onClick={this.increasePage} />)}
       </>
     );
   }
